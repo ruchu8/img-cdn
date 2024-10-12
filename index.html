@@ -18,26 +18,40 @@
         #randomImage {
             display: none; /* 隐藏 img 标签 */
         }
+        #imageSource {
+            position: absolute;
+            bottom: 20px;
+            color: #333;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
     </style>
     <script>
         function getRandomImage() {
-            // 定义三个文件夹及其对应的图片数量
-            var folders = [
-                { name: "img1", count: 850 },
-                { name: "img2", count: 457 },
-                { name: "pc", count: 448 }
-            ];
+            try {
+                // 定义三个文件夹及其对应的图片数量
+                const folders = [
+                    { name: "img1", count: 850 },
+                    { name: "img2", count: 457 },
+                    { name: "pc", count: 448 }
+                ];
 
-            // 随机选择一个文件夹
-            var randomFolderIndex = Math.floor(Math.random() * folders.length);
-            var selectedFolder = folders[randomFolderIndex];
+                // 随机选择一个文件夹
+                const selectedFolder = folders[Math.floor(Math.random() * folders.length)];
 
-            // 在选择的文件夹中随机选择一张图片
-            var randomImageIndex = Math.floor(Math.random() * selectedFolder.count) + 1; // 生成1到对应文件夹数量的随机数
-            var randomImage = selectedFolder.name + "/ruchu-" + randomImageIndex + ".jpg";
+                // 在选择的文件夹中随机选择一张图片
+                const randomImageIndex = Math.floor(Math.random() * selectedFolder.count) + 1; 
+                const randomImage = `${selectedFolder.name}/ruchu-${randomImageIndex}.jpg`;
 
-            // 设置body的背景图
-            document.body.style.backgroundImage = `url('${randomImage}')`;
+                // 设置body的背景图
+                document.body.style.backgroundImage = `url('${randomImage}')`;
+                
+                // 显示图片地址
+                document.getElementById('imageSource').innerText = randomImage;
+            } catch (error) {
+                console.error("获取随机图片时出现错误:", error);
+                alert("无法加载随机图片，请稍后再试。");
+            }
         }
 
         // 页面加载时随机显示一张图片
@@ -45,7 +59,10 @@
     </script>
 </head>
 <body>
-  
     <img id="randomImage" src="" alt="随机图片">
+    <div id="imageSource">这里将显示随机图片的地址</div>
+
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id:"3JyDN38xyGD2ZeaJ",ck:"3JyDN38xyGD2ZeaJ"})</script> 
 </body>
 </html>
