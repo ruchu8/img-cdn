@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机显示图片</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            overflow: hidden; /* 防止滚动条出现 */
+            background-size: cover; /* 填满整个背景 */
+        }
+        #randomImage {
+            display: none; /* 隐藏 img 标签 */
+        }
+    </style>
+    <script>
+        function getRandomImage() {
+            // 定义三个文件夹及其对应的图片数量
+            var folders = [
+                { name: "img1", count: 850 },
+                { name: "img2", count: 457 },
+                { name: "pc", count: 448 }
+            ];
+
+            // 随机选择一个文件夹
+            var randomFolderIndex = Math.floor(Math.random() * folders.length);
+            var selectedFolder = folders[randomFolderIndex];
+
+            // 在选择的文件夹中随机选择一张图片
+            var randomImageIndex = Math.floor(Math.random() * selectedFolder.count) + 1; // 生成1到对应文件夹数量的随机数
+            var randomImage = selectedFolder.name + "/ruchu-" + randomImageIndex + ".jpg";
+
+            // 设置body的背景图
+            document.body.style.backgroundImage = `url('${randomImage}')`;
+        }
+
+        // 页面加载时随机显示一张图片
+        window.onload = getRandomImage;
+    </script>
+</head>
+<body>
+  
+    <img id="randomImage" src="" alt="随机图片">
+</body>
+</html>
