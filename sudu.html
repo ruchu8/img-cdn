@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Load Time Test</title>
+</head>
+<body>
+    <h1>图片加载测试</h1>
+	  <div id="results"></div>
+    <div id="images">
+        <img src="https://s2.loli.net/2024/10/16/HfxAJz5wnLFCR6M.jpg" alt="sm.ms">
+        <img src="https://i0.hdslb.com/bfs/article/863fede0d85f8b07bb25f4c1b20f52f63546661823449379.jpg" alt="B站">
+        <img src="https://img-cdn.99j.us.kg/img/7563d516697046a02f3f1d54947f123d.jpg" alt="github+vercel">
+        <img src="https://s1.vika.cn/space/2024/10/15/246ae58478ad4b2c8abf573badcbf9a5" alt="vika">
+        <img src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/7563d516697046a02f3f1d54947f123d.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080" alt="元气壁纸">
+    </div>
+   
+
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('#images img');
+            const results = document.getElementById('results');
+
+            images.forEach(img => {
+                const startTime = performance.now();
+                img.onload = function() {
+                    const endTime = performance.now();
+                    const loadTime = endTime - startTime;
+                    const loadTimeSeconds = loadTime / 1000;
+                    if (loadTimeSeconds >= 1) {
+                        results.innerHTML += `<p>${img.alt} 用时 ${loadTimeSeconds.toFixed(2)} 秒</p>`;
+                    } else {
+                        results.innerHTML += `<p>${img.alt} 用时 ${loadTime.toFixed(2)} 毫秒</p>`;
+                    }
+                };
+                img.onerror = function() {
+                    results.innerHTML += `<p>${img.alt} failed to load</p>`;
+                };
+            });
+        });
+    </script>
+</body>
+</html>
